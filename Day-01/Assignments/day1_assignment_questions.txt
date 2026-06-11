@@ -1,0 +1,29 @@
+Number Systems- Assignment
+Q1. Complete the table with equivalents in Binary, Octal, and Hexa for: 143.75 (decimal), 11011.101 (binary), 453 (octal), 1F.C (hex).
+
+Q2. Find equivalents:
+a) 324₅ = ?₁₀ 
+b) 32.23₄ = ?₁₀
+c) 231₁₀ = ?₇ 
+d) 189₁₀ = ?₆
+
+Q3. Find the radix r:
+a) (312/20)ᵣ = (13.1)ᵣ 
+b) 264ᵣ + 136ᵣ = 433ᵣ
+c) 221505₈ = 12345ᵣ
+
+Q4. Addition:
+a) 1101₂ + 11011111₂ 
+b) 77652₈ + 76543₈
+c) 578A₁₆ + ABDE₁₆ 
+d) 234₆ + 315₆
+
+Q5. Binary → Gray code:
+a) 10101₂ 
+ b) 01110₂
+
+Q6. Gray code → Binary:
+a) 01101 (gray)
+b) 10101 (gray)
+
+
