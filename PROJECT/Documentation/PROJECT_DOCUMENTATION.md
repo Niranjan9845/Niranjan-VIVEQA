@@ -23,19 +23,19 @@ The system supports:
 ### 2.1 System Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    PMOD INTERFACE (9 wires)                 │
-│                                                             │
-│  Board B (Backup)          ←→          Board A (Primary)    │
-│  ┌──────────────┐                       ┌──────────────┐    │
-│  │ Heartbeat    │──hb_pos[2:0]─────── ▶│ Heartbeat    │     │
+┌──────────────────────────────────────────────────────────────┐
+│                    PMOD INTERFACE (9 wires)                  │
+│                                                              │
+│  Board B (Backup)          ←→          Board A (Primary)     │
+│  ┌──────────────┐                      ┌──────────────┐      │
+│  │ Heartbeat    │──hb_pos[2:0]────────▶│ Heartbeat    │     │
 │  │ Generator    │──hb_tick────────────▶│ Receiver     │     │
 │  │              │◀─ack_valid───────────│              │     │
 │  │ Balance      │◀─bal_data────────────│ Balance      │     │
 │  │ Receiver     │◀─bal_clk─────────────│ Sender       │     │
 │  │              │──sync_data──────────▶│              │     │
 │  │ Sync Sender  │──sync_clk───────────▶│ Sync Receiver│     │
-│  └──────────────┘                       └──────────────┘     │
+│  └──────────────┘                      └──────────────┘      │
 │  • Monitors ACK timeout                • All transactions    │
 │  • Takes over on failure               • Sends balance to B  │
 │  • Sends balance to A on recovery      • Loads balance from B│
@@ -44,17 +44,17 @@ The system supports:
 
 ### 2.2 PMOD Pin Mapping
 
-| Pin | Signal | Direction | Purpose |
-|-----|--------|-----------|---------|
-| IO_0 (T2) | hb_pos[0] | B → A | Heartbeat position bit 0   |
-| IO_1 (R3) | hb_pos[1] | B → A | Heartbeat position bit 1   |
-| IO_2 (T3) | hb_pos[2] | B → A | Heartbeat position bit 2   |
-| IO_3 (T4) | hb_tick   | B → A | Heartbeat tick pulse       |
-| IO_4 (M1) | ack_valid | A → B | Board A alive signal       |
-| IO_5 (M2) | bal_data  | A → B | Serial balance data A to B |
-| IO_6 (P1) | bal_clk   | A → B | Serial clock A to B        |
-| IO_7 (R1) | sync_data | B → A | Serial balance data B to A |
-| IO_8 (N1) | sync_clk  | B → A | Serial clock B to A        |
+| Pin       | Signal    | Direction | Purpose                    |
+|-----------|-----------|-----------|----------------------------|
+| IO_0 (T2) | hb_pos[0] | B → A     | Heartbeat position bit 0   |
+| IO_1 (R3) | hb_pos[1] | B → A     | Heartbeat position bit 1   |
+| IO_2 (T3) | hb_pos[2] | B → A     | Heartbeat position bit 2   |
+| IO_3 (T4) | hb_tick   | B → A     | Heartbeat tick pulse       |
+| IO_4 (M1) | ack_valid | A → B     | Board A alive signal       |
+| IO_5 (M2) | bal_data  | A → B     | Serial balance data A to B |
+| IO_6 (P1) | bal_clk   | A → B     | Serial clock A to B        |
+| IO_7 (R1) | sync_data | B → A     | Serial balance data B to A |
+| IO_8 (N1) | sync_clk  | B → A     | Serial clock B to A        |
 
 ### 2.3 Operational Roles
 
@@ -86,7 +86,7 @@ Board B monitors the ACK using a 4-bit shift filter. Only when 4 consecutive HIG
 
 Board B maintains a timeout counter that counts up whenever the ACK filter does not reach `4'b1111`. If no valid ACK is received for 3 seconds (72,000,000 clock cycles at 24MHz), `board_a_alive` is declared LOW and `board_b_active` goes HIGH.
 
-A `board_a_seen` flag ensures Board B never activates on startup before Board A has had a chance to connect. Board B only triggers failover if it has previously confirmed Board A was alive and then lost the connection.
+Board B activates as primary whenever Board A is absent — whether Board A was previously connected or not. This ensures Board B is always ready to handle transactions independently if needed.
 
 ### 3.3 Balance Synchronization — A to B
 
@@ -230,17 +230,17 @@ Drives the onboard 4-digit 7-segment display via the MAX7219 SPI chip using a ve
 **Board A:**
 | Switch | Pin | Function |
 |--------|-----|----------|
-| SW0 | C9 | Reset        |
+| SW0 | C9 | Reset |
 | SW1 | B9 | Add mode (deposit) |
 | SW2 | G5 | Sub mode (withdrawal) |
-| SW3 | A7 | Freeze       |
-| SW4 | A10 | Shutdown    |
-| SW5 | C7 | Enable       |
+| SW3 | A7 | Freeze |
+| SW4 | A10 | Shutdown |
+| SW5 | C7 | Enable |
 
 **Board B:**
 | Switch | Pin | Function |
 |--------|-----|----------|
-| SW0 | C9 | Reset        |
+| SW0 | C9 | Reset |
 | SW1 | B9 | Add mode (failover only) |
 | SW2 | G5 | Sub mode (failover only) |
 | SW3 | A7 | Enable (failover only) |
