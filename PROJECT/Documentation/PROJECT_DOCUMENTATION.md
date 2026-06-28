@@ -1,4 +1,4 @@
-# Dual FPGA Fault-Tolerant Banking System
+# Fault-Tolerant Banking System
 ### Team: Niranjan & Nikesh
 ### Platform: Anmaya AT-STLN-ARTIX 7-001 (Xilinx XC7A35T) | Clock: 24 MHz
 
@@ -6,7 +6,7 @@
 
 ## 1. Project Overview
 
-The Dual FPGA Fault-Tolerant Banking System is a hardware implementation of a fault-tolerant financial transaction system using two physical FPGA boards. The system models a real-world banking architecture where a primary processing unit handles all customer transactions while a secondary backup unit continuously monitors the primary and stores a live copy of the account balance.
+The Fault-Tolerant Banking System is a hardware implementation of a fault-tolerant financial transaction system using two physical FPGA boards. The system models a real-world banking architecture where a primary processing unit handles all customer transactions while a secondary backup unit continuously monitors the primary and stores a live copy of the account balance.
 
 If the primary unit fails — whether due to a power outage, hardware fault, or maintenance — the backup unit automatically detects the failure within 3 seconds and seamlessly takes over all banking operations without any data loss. When the primary unit is restored, it receives the latest balance from the backup and resumes normal operation.
 
