@@ -124,7 +124,7 @@ Integrates all Board A logic. Manages heartbeat following, ACK generation, balan
 | Port | Direction | Description |
 |------|-----------|-------------|
 | clk | Input | 24 MHz system clock |
-| sw[5:0] | Input | sw[0]=rst, sw[1]=add, sw[2]=sub, sw[3]=freeze, sw[4]=shutdown, sw[5]=enable |
+| sw[4:0] | Input | sw[0]=add, sw[1]=sub, sw[2]=freeze, sw[3]=shutdown, sw[4]=enable |
 | btn[15:0] | Input | Keypad buttons — btn[0]-btn[9] are digits |
 | led[7:0] | Output | Heartbeat running light (8 LEDs) |
 | seg_din/clk/cs | Output | MAX7219 SPI for 7-segment display |
@@ -230,12 +230,11 @@ Drives the onboard 4-digit 7-segment display via the MAX7219 SPI chip using a ve
 **Board A:**
 | Switch | Pin | Function |
 |--------|-----|----------|
-| SW0 | C9 | Reset |
-| SW1 | B9 | Add mode (deposit) |
-| SW2 | G5 | Sub mode (withdrawal) |
-| SW3 | A7 | Freeze |
-| SW4 | A10 | Shutdown |
-| SW5 | C7 | Enable |
+| SW0 | C9 | Add mode (deposit) |
+| SW1 | B9 | Sub mode (withdrawal) |
+| SW2 | G5 | Freeze |
+| SW3 | A7 | Shutdown |
+| SW4 | C7 | Enable |
 
 **Board B:**
 | Switch | Pin | Function |
